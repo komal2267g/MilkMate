@@ -1,0 +1,103 @@
+.landing-wrapper {
+  background-color: #f8faff;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Centered Hero */
+.hero-centered {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+}
+
+.hero-centered h1 {
+  font-size: 3.5rem;
+  color: #1a202c;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #0077b6;
+}
+
+.hero-centered p {
+  font-size: 1.2rem;
+  color: #4a5568;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+.big-cta-btn {
+  text-decoration: none;
+  background-color: #0077b6;
+  color: white;
+  padding: 18px 40px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 10px 20px rgba(0, 119, 182, 0.2);
+  transition: transform 0.2s;
+}
+
+.big-cta-btn:hover {
+  background-color: #023e8a;
+  transform: translateY(-3px);
+}
+
+/* Steps Section */
+.steps-section {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #f1f5f9;
+  flex: 1; /* Pushes footer down */
+}
+
+.steps-section h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.steps-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.step-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 280px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.step-number {
+  background-color: #e0f2fe;
+  color: #0077b6;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0 auto 15px auto;
+}
+
+.simple-footer {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  color: #888;
+  border-top: 1px solid #eee;
+}

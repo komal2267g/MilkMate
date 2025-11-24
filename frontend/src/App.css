@@ -1,0 +1,128 @@
+/* --- GLOBAL DEFAULTS --- */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f6fbff; /* Light Mode Background */
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+a { 
+  color: inherit; 
+  text-decoration: none;
+}
+
+/* =========================================
+   DARK MODE OVERRIDES (The Strong Version)
+   ========================================= */
+
+/* 1. Main Backgrounds */
+body.dark-mode,
+body.dark-mode #root,
+body.dark-mode .dashboard-container,
+body.dark-mode .main-content {
+    background-color: #121212 !important; /* Deep Black */
+    color: #e0e0e0 !important;
+}
+
+/* 2. Sidebar & Header */
+body.dark-mode .sidebar {
+    background-color: #000000 !important; /* Pure Black Sidebar */
+    border-right: 1px solid #333;
+}
+
+body.dark-mode .sidebar a {
+    color: #b0b0b0 !important;
+}
+
+body.dark-mode .sidebar a:hover,
+body.dark-mode .sidebar a.active {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .dashboard-header {
+    background-color: #1e1e1e !important; /* Dark Grey Header */
+    border-bottom: 1px solid #333;
+    color: #fff !important;
+}
+
+/* 3. Cards (Settings, Profile, Forms, Stats) */
+body.dark-mode .settings-card,
+body.dark-mode .profile-card,
+body.dark-mode .login-card,
+body.dark-mode .signup-card,
+body.dark-mode .payment-form,
+body.dark-mode .stat-card,
+body.dark-mode .entry-container, 
+body.dark-mode .recent-entries,
+body.dark-mode .defaulter-section,
+body.dark-mode .filter-bar,
+body.dark-mode .qr-section {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333;
+    color: #fff !important;
+    box-shadow: none;
+}
+
+/* 4. Inputs & Form Elements */
+body.dark-mode input, 
+body.dark-mode select, 
+body.dark-mode textarea {
+    background-color: #2d2d2d !important;
+    border: 1px solid #444 !important;
+    color: #fff !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #888 !important;
+}
+
+/* 5. Tables */
+body.dark-mode table {
+    background-color: #1e1e1e !important;
+    color: #fff !important;
+}
+
+body.dark-mode th {
+    background-color: #2d2d2d !important;
+    color: #ccc !important;
+    border-bottom: 1px solid #444;
+}
+
+body.dark-mode td {
+    border-bottom: 1px solid #333;
+    color: #eee !important;
+}
+
+body.dark-mode tr:hover {
+    background-color: #252525 !important;
+}
+
+/* 6. Text Corrections */
+body.dark-mode h1,
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4,
+body.dark-mode label,
+body.dark-mode .user-name,
+body.dark-mode .card-header {
+    color: #f5f5f5 !important;
+}
+
+body.dark-mode .helper-text,
+body.dark-mode .sub-text {
+    color: #aaa !important;
+}
+
+/* 7. Buttons in Dark Mode */
+body.dark-mode .btn-outline {
+    background-color: transparent !important;
+    border-color: #0077b6 !important;
+    color: #48cae4 !important;
+}
+
+body.dark-mode .save-btn-main {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}

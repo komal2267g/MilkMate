@@ -1,0 +1,95 @@
+/* Navbar Container */
+.public-nav {
+  background-color: #ffffff;
+  height: 80px; /* Fixed height for consistency */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Light shadow */
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- LOGO SECTION --- */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Space between Logo and Text */
+  text-decoration: none;
+}
+
+.logo-circle {
+  width: 45px;
+  height: 45px;
+  background: transparent; /* TRANSPARENT - No Color */
+  border: 2px solid #0077b6; /* Blue Border */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.cow-icon {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-text {
+  font-size: 1.6rem; /* Big and Bold like before */
+  font-weight: 800;
+  color: #023e8a;
+  letter-spacing: -0.5px;
+}
+
+/* --- BUTTONS SECTION --- */
+.nav-menu {
+  display: flex;
+  gap: 15px;
+}
+
+/* Common Button Style */
+.nav-btn {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 10px 25px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+/* 1. Log In Button (White Box, Blue Border) */
+.btn-login {
+  background-color: transparent;
+  color: #0077b6;
+  border: 2px solid #0077b6;
+}
+
+.btn-login:hover {
+  background-color: #e0f2fe; /* Light blue on hover */
+}
+
+/* 2. Sign Up Button (Blue Box, White Text) */
+.btn-signup {
+  background-color: #0077b6;
+  color: white;
+  border: 2px solid #0077b6;
+}
+
+.btn-signup:hover {
+  background-color: #023e8a; /* Darker blue on hover */
+  border-color: #023e8a;
+  box-shadow: 0 4px 8px rgba(0, 119, 182, 0.3);
+}

@@ -1,0 +1,69 @@
+.summary-container { padding: 20px; }
+
+/* Filter Bar */
+.filter-bar {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    margin-bottom: 25px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.date-group { display: flex; flex-direction: column; }
+.date-group label { font-size: 0.8rem; color: #666; }
+.date-input { padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+
+.download-btn {
+    background: #333; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;
+}
+
+/* Stats Grid - COLORFUL CARDS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    padding: 25px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.stat-card.blue { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.stat-card.green { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.stat-card.red { background: linear-gradient(135deg, #ff9a9e, #fecfef); color: #c0392b; }
+
+.big-number { font-size: 2.5rem; font-weight: bold; margin: 10px 0; }
+.sub-text { opacity: 0.9; font-size: 0.9rem; }
+
+/* Table */
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.summary-table th, .summary-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.amount-due { color: #e74c3c; font-weight: bold; }
+
+.remind-btn {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}

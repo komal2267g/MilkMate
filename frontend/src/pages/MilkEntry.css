@@ -1,0 +1,89 @@
+.radio-group {
+    display: flex;
+    gap: 10px;
+}
+
+.radio-btn {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    background: white;
+    font-weight: bold;
+}
+
+/* Hide actual radio circle, style the box instead */
+.radio-btn input {
+    display: none;
+}
+
+.radio-btn.active {
+    background-color: #ff9800; /* Orange for Milk vibe */
+    color: white;
+    border-color: #e68900;
+}
+
+.total-box {
+    background-color: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    border: 1px solid #c8e6c9;
+}
+
+.total-box h3 {
+    color: #2e7d32;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* ... Existing Form CSS ... */
+
+.recent-entries {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #f8f9fa;
+    color: #555;
+    font-weight: 600;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.badge.Morning { background-color: #fff3cd; color: #856404; }
+.badge.Evening { background-color: #d1ecf1; color: #0c5460; }
+
+.amount {
+    color: #28a745;
+    font-weight: bold;
+}

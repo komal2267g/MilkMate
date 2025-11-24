@@ -1,0 +1,65 @@
+.profile-page-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+.profile-card {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+}
+.profile-header-bg {
+    height: 120px;
+    background: linear-gradient(135deg, #0077b6, #48cae4);
+}
+.profile-avatar-section {
+    margin-top: -60px;
+    display: flex;
+    justify-content: center;
+}
+.avatar-wrapper {
+    position: relative;
+}
+.avatar-wrapper img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+    background: white;
+}
+.camera-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #333;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+}
+.profile-form {
+    padding: 30px;
+    text-align: left;
+}
+.save-profile-btn {
+    width: 100%;
+    background: #0077b6;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.disabled-input { background: #f0f0f0; cursor: not-allowed; }
