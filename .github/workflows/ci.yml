@@ -1,0 +1,43 @@
+name: MERN CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # Job 1: Check Backend
+  build-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Install Backend Dependencies
+      run: npm install
+    # (Optional) Add 'npm test' here later if you write tests
+
+  # Job 2: Check Frontend
+  build-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Install Frontend Dependencies
+      run: npm install
+    - name: Build React App
+      run: npm run build
+      env:
+        CI: false # Prevents the build from failing on minor warnings
