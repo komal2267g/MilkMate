@@ -17,7 +17,7 @@ const Payments = () => {
 
   const fetchHistory = async () => {
     try {
-        const res = await fetch('http://localhost:5000/api/payments');
+        const res = await fetch('https://milkmate-w4lw.onrender.com/api/payments');
         const data = await res.json();
         setTransactions(data);
     } catch (err) { console.error("Error", err); }
@@ -25,7 +25,7 @@ const Payments = () => {
 
   const fetchCustomers = async () => {
     try {
-        const res = await fetch('http://localhost:5000/api/customer-list');
+        const res = await fetch('https://milkmate-w4lw.onrender.com/api/customer-list');
         const data = await res.json();
         setCustomers(data);
     } catch (err) { console.error("Error", err); }
@@ -36,7 +36,7 @@ const Payments = () => {
     if (!payment.customerName || !payment.amount) return alert("Select Customer & Amount");
 
     try {
-        const response = await fetch('http://localhost:5000/api/add-payment', {
+        const response = await fetch('https://milkmate-w4lw.onrender.com/api/add-payment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payment)

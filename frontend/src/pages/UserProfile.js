@@ -32,7 +32,7 @@ const UserProfile = () => {
   // --- REAL SAVE FUNCTION ---
   const handleSave = async () => {
     try {
-        const response = await fetch('http://localhost:5000/api/update-profile', {
+        const response = await fetch('https://milkmate-w4lw.onrender.com/api/update-profile', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user) // Sending _id, name, phone, bio

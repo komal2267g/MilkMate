@@ -10,7 +10,7 @@ const Customers = () => {
 
   const fetchLedger = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/customer-ledger');
+      const res = await fetch('https://milkmate-w4lw.onrender.com/api/customer-ledger');
       const data = await res.json();
       setCustomers(data);
     } catch (error) { console.error("Error", error); }

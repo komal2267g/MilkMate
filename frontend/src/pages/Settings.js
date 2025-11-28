@@ -51,7 +51,7 @@ const Settings = () => {
   // --- EXPORT DATA TO CSV ---
   const handleExport = async () => {
     try {
-        const res = await fetch('http://localhost:5000/api/entries'); 
+        const res = await fetch('https://milkmate-w4lw.onrender.com/api/entries'); 
         const data = await res.json();
 
         if (!data || data.length === 0) {
@@ -88,7 +88,7 @@ const Settings = () => {
   const handleReset = async () => {
     if (window.confirm("⚠️ ARE YOU SURE? This will permanently delete ALL Customer Entries and Payments! This cannot be undone.")) {
         try {
-            const res = await fetch('http://localhost:5000/api/reset-all', { method: 'DELETE' });
+            const res = await fetch('https://milkmate-w4lw.onrender.com/api/reset-all', { method: 'DELETE' });
             
             if (res.ok) {
                 alert("♻️ System Reset Successful. All data cleared.");

@@ -19,7 +19,7 @@ const Summary = () => {
   // 1. Fetch Stats for Cards
   const fetchStats = async () => {
     try {
-        const res = await fetch('http://localhost:5000/api/customer-ledger');
+        const res = await fetch('https://milkmate-w4lw.onrender.com/api/customer-ledger');
         const data = await res.json();
         let milk = 0, paid = 0, due = 0;
         const pendingList = [];
@@ -39,7 +39,7 @@ const Summary = () => {
   // 2. GENERATE PDF (Correct Logic)
   const generatePDF = async () => {
     try {
-        const response = await fetch(`http://localhost:5000/api/statement?startDate=${dates.startDate}&endDate=${dates.endDate}`);
+        const response = await fetch(`https://milkmate-w4lw.onrender.com/api/statement?startDate=${dates.startDate}&endDate=${dates.endDate}`);
         const transactions = await response.json();
 
         if (transactions.length === 0) {

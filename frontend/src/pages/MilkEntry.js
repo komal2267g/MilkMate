@@ -22,7 +22,7 @@ const MilkEntry = () => {
 
   const fetchEntries = async () => {
     try {
-        const res = await fetch('http://localhost:5000/api/entries');
+        const res = await fetch('https://milkmate-w4lw.onrender.com/api/entries');
         const data = await res.json();
         setEntries(data);
     } catch (error) { console.error("Error fetching entries", error); }
@@ -45,7 +45,7 @@ const MilkEntry = () => {
     const entryData = { ...formData, total, liters: parseFloat(formData.liters), rate: parseFloat(formData.rate) };
 
     try {
-        const response = await fetch('http://localhost:5000/api/add-entry', {
+        const response = await fetch('https://milkmate-w4lw.onrender.com/api/add-entry', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(entryData)
