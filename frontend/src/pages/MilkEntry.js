@@ -2,23 +2,38 @@ import React, { useState, useEffect } from 'react';
 import './MilkEntry.css';
 
 const MilkEntry = () => {
-  // Form State
   const [formData, setFormData] = useState({
     customerName: '',
     shift: 'Morning',
     liters: '',
     fat: '',
+    snf: '', // New Field
+    milkType: 'Cow', // New Field
     rate: '',
   });
   const [total, setTotal] = useState(0);
-
-  // Table Data State
   const [entries, setEntries] = useState([]);
 
-  // 1. Load Data when page opens
   useEffect(() => {
     fetchEntries();
   }, []);
+
+  // AUTO-CALCULATE RATE & TOTAL
+  useEffect(() => {
+    const f = parseFloat(formData.fat) || 0;
+    const s = parseFloat(formData.snf) || 0;
+    const l = parseFloat(formData.liters) || 0;
+
+    // Standard Industry Formula: (Fat * 6.5) + (SNF * 3.5)
+    // You can adjust these multipliers based on your local rates
+    const calculatedRate = (f * 6.5) + (s * 3.5);
+    
+    if (calculatedRate > 0) {
+      const finalTotal = calculatedRate * l;
+      setFormData(prev => ({ ...prev, rate: calculatedRate.toFixed(2) }));
+      setTotal(finalTotal);
+    }
+  }, [formData.fat, formData.snf, formData.liters]);
 
   const fetchEntries = async () => {
     try {
@@ -31,18 +46,20 @@ const MilkEntry = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
-    let qty = name === 'liters' ? parseFloat(value) : parseFloat(formData.liters);
-    let r = name === 'rate' ? parseFloat(value) : parseFloat(formData.rate);
-    if (!isNaN(qty) && !isNaN(r)) setTotal(qty * r);
-    else setTotal(0);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.customerName || !formData.liters || !formData.rate) return;
+    if (!formData.customerName || !formData.liters) return;
 
-    const entryData = { ...formData, total, liters: parseFloat(formData.liters), rate: parseFloat(formData.rate) };
+    const entryData = { 
+        ...formData, 
+        total: total.toFixed(2), 
+        liters: parseFloat(formData.liters), 
+        rate: parseFloat(formData.rate),
+        fat: parseFloat(formData.fat),
+        snf: parseFloat(formData.snf)
+    };
 
     try {
         const response = await fetch('https://milkmate-w4lw.onrender.com/api/add-entry', {
@@ -52,10 +69,9 @@ const MilkEntry = () => {
         });
 
         if (response.ok) {
-            // alert("Entry Saved!"); // Removed Alert to make it faster
-            setFormData({ customerName: '', shift: 'Morning', liters: '', fat: '', rate: '' });
+            setFormData({ customerName: '', shift: 'Morning', liters: '', fat: '', snf: '', milkType: 'Cow', rate: '' });
             setTotal(0);
-            fetchEntries(); // REFRESH TABLE INSTANTLY
+            fetchEntries(); 
         }
     } catch (error) { alert("Error saving."); }
   };
@@ -64,20 +80,18 @@ const MilkEntry = () => {
     <div className="entry-container">
       <h2>Daily Milk Entry 🥛</h2>
       
-      {/* --- SECTION 1: THE FORM --- */}
       <form onSubmit={handleSubmit} className="entry-form">
-         {/* ... (Keep your Shift Radio Buttons Code Here) ... */}
          <div className="form-group-row">
-            <label>Shift:</label>
+            <label>Shift & Type:</label>
             <div className="radio-group">
-                <label className={`radio-btn ${formData.shift === 'Morning' ? 'active' : ''}`}>
-                    <input type="radio" name="shift" value="Morning" checked={formData.shift === 'Morning'} onChange={handleChange}/> 
-                    ☀️ Morning
-                </label>
-                <label className={`radio-btn ${formData.shift === 'Evening' ? 'active' : ''}`}>
-                    <input type="radio" name="shift" value="Evening" checked={formData.shift === 'Evening'} onChange={handleChange}/> 
-                    🌙 Evening
-                </label>
+                <select name="shift" value={formData.shift} onChange={handleChange} className="dropdown-small">
+                    <option value="Morning">☀️ Morning</option>
+                    <option value="Evening">🌙 Evening</option>
+                </select>
+                <select name="milkType" value={formData.milkType} onChange={handleChange} className="dropdown-small">
+                    <option value="Cow">🐄 Cow</option>
+                    <option value="Buffalo">🐃 Buffalo</option>
+                </select>
             </div>
         </div>
 
@@ -89,21 +103,25 @@ const MilkEntry = () => {
         <div className="row-inputs">
             <div className="input-group">
                 <label>Liters</label>
-                <input type="number" name="liters" value={formData.liters} step="0.1" onChange={handleChange} required />
+                <input type="number" name="liters" value={formData.liters} step="0.1" placeholder="0.0" onChange={handleChange} required />
             </div>
             <div className="input-group">
-                <label>Rate</label>
-                <input type="number" name="rate" value={formData.rate} onChange={handleChange} required />
+                <label>Fat %</label>
+                <input type="number" name="fat" value={formData.fat} step="0.1" placeholder="4.5" onChange={handleChange} />
+            </div>
+            <div className="input-group">
+                <label>SNF %</label>
+                <input type="number" name="snf" value={formData.snf} step="0.1" placeholder="8.5" onChange={handleChange} />
             </div>
         </div>
 
         <div className="total-box">
+            <div className="rate-display">Rate: ₹{formData.rate || '0.00'}</div>
             <span>Bill: ₹ {total.toFixed(2)}</span>
             <button type="submit" className="save-btn">Save ✅</button>
         </div>
       </form>
 
-      {/* --- SECTION 2: THE TABLE (NEW) --- */}
       <div className="recent-entries">
         <h3>Recent Entries 📋</h3>
         <div className="table-responsive">
@@ -112,7 +130,8 @@ const MilkEntry = () => {
                     <tr>
                         <th>Date</th>
                         <th>Name</th>
-                        <th>Shift</th>
+                        <th>Type</th>
+                        <th>Fat/SNF</th>
                         <th>Liters</th>
                         <th>Total</th>
                     </tr>
@@ -122,11 +141,8 @@ const MilkEntry = () => {
                         <tr key={entry._id}>
                             <td>{new Date(entry.date).toLocaleDateString()}</td>
                             <td>{entry.customerName}</td>
-                            <td>
-                                <span className={`badge ${entry.shift}`}>
-                                    {entry.shift === 'Morning' ? '☀️' : '🌙'}
-                                </span>
-                            </td>
+                            <td>{entry.milkType || 'Cow'}</td>
+                            <td>{entry.fat || 0} / {entry.snf || 0}</td>
                             <td>{entry.liters} L</td>
                             <td className="amount">₹{entry.total}</td>
                         </tr>

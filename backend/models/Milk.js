@@ -4,7 +4,9 @@ const MilkSchema = new mongoose.Schema({
     customerName: { type: String, required: true },
     shift: { type: String, required: true }, // Morning/Evening
     liters: { type: Number, required: true },
-    fat: { type: Number },
+    fat: { type: Number, default: 0 },         // Added SNF for calculation
+    snf: { type: Number, default: 0 },         // Added SNF for calculation
+    milkType: { type: String, default: 'Cow' }, // Cow/Buffalo
     rate: { type: Number, required: true },
     total: { type: Number, required: true },
     date: { type: Date, default: Date.now }

@@ -6,17 +6,13 @@ import './Summary.css';
 const Summary = () => {
   const [stats, setStats] = useState({ totalMilk: 0, totalMoney: 0, totalDue: 0 });
   const [defaulters, setDefaulters] = useState([]);
-  
   const [dates, setDates] = useState({
     startDate: new Date().toISOString().split('T')[0],
     endDate: new Date().toISOString().split('T')[0]
   });
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
+  useEffect(() => { fetchStats(); }, []);
 
-  // 1. Fetch Stats for Cards
   const fetchStats = async () => {
     try {
         const res = await fetch('https://milkmate-w4lw.onrender.com/api/customer-ledger');
@@ -36,98 +32,74 @@ const Summary = () => {
     } catch (error) { console.error("Error", error); }
   };
 
-  // 2. GENERATE PDF (Correct Logic)
   const generatePDF = async () => {
     try {
         const response = await fetch(`https://milkmate-w4lw.onrender.com/api/statement?startDate=${dates.startDate}&endDate=${dates.endDate}`);
         const transactions = await response.json();
-
-        if (transactions.length === 0) {
-            alert("No transactions found.");
-            return;
-        }
+        if (transactions.length === 0) { alert("No transactions found."); return; }
 
         const doc = new jsPDF();
-
-        // PDF Title
         doc.setFontSize(18);
         doc.text("MilkMate Statement", 14, 20);
-        
         doc.setFontSize(10);
         doc.text(`From: ${dates.startDate}   To: ${dates.endDate}`, 14, 28);
 
-        // Columns: Date | Name | Liters | Rate | Bill | Paid
         const tableColumn = ["Date", "Customer", "Liters", "Rate", "Bill (+)", "Paid (-)"];
         const tableRows = [];
-
-        let totalBill = 0;
-        let totalPaid = 0;
+        let totalBill = 0, totalPaid = 0;
 
         transactions.forEach(t => {
             const dateStr = new Date(t.date).toLocaleDateString();
-            
-            let liters = "-";
-            let rate = "-";
-            let billAmount = "-";
-            let paidAmount = "-";
+            let liters = "-", rate = "-", billAmount = "-", paidAmount = "-";
 
-            // If MILK Entry
             if (!t.isCredit) {
                 liters = t.liters + " L";
                 rate = "Rs. " + t.rate;
                 billAmount = `Rs. ${t.amount}`;
                 totalBill += t.amount;
-            } 
-            
-            // If PAYMENT Entry
-            if (t.isCredit) {
+            } else {
                 liters = "Payment";
                 paidAmount = `Rs. ${t.amount}`;
                 totalPaid += t.amount;
             }
-
-            const rowData = [ dateStr, t.customer, liters, rate, billAmount, paidAmount ];
-            tableRows.push(rowData);
+            tableRows.push([ dateStr, t.customer, liters, rate, billAmount, paidAmount ]);
         });
 
-        // Total Row
         tableRows.push(["", "", "", "TOTAL:", `Rs. ${totalBill}`, `Rs. ${totalPaid}`]);
-        
-        // Balance Row
         const balance = totalBill - totalPaid;
         tableRows.push(["", "", "", "BALANCE DUE:", "", `Rs. ${balance}`]);
 
-        // Generate Table
         autoTable(doc, {
             head: [tableColumn],
             body: tableRows,
             startY: 35,
             theme: 'grid',
-            headStyles: { fillColor: [44, 62, 80] }, // Dark Header
-            columnStyles: {
-                4: { textColor: [200, 0, 0] }, // Bill Red
-                5: { textColor: [0, 150, 0] }  // Paid Green
-            }
+            headStyles: { fillColor: [44, 62, 80] },
+            columnStyles: { 4: { textColor: [200, 0, 0] }, 5: { textColor: [0, 150, 0] } }
         });
 
         doc.save(`Milk_Statement.pdf`);
-
-    } catch (error) {
-        console.error("PDF Error", error);
-        alert("Failed to generate PDF");
-    }
+    } catch (error) { alert("Failed to generate PDF"); }
   };
 
+  // IMPROVED WHATSAPP REMINDER
   const sendReminder = (name, amount) => {
-      const msg = `Namaste ${name} ji, Your pending milk bill is ₹${amount}. Please pay soon. Thank you.`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+      const phone = prompt(`Enter WhatsApp number for ${name} (with 91):`, "91");
+      if (!phone || phone.length < 10) return;
+
+      const msg = `*MilkMate Business Summary*%0A%0A` +
+                  `Namaste *${name}* ji,%0A` +
+                  `Aapka abhi tak ka milk bill *₹${amount}* pending hai.%0A` +
+                  `Kripya jald bhugtan karein.%0A%0A` +
+                  `_Sent via MilkMate App_`;
+
+      window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
   };
 
   return (
     <div className="summary-container">
       <h2>📊 Business Report</h2>
       
-      {/* Date Filters */}
       <div className="filter-bar">
         <div className="date-group">
             <label>From:</label>
@@ -137,35 +109,20 @@ const Summary = () => {
             <label>To:</label>
             <input type="date" className="date-input" value={dates.endDate} onChange={(e) => setDates({...dates, endDate: e.target.value})}/>
         </div>
-        <button className="download-btn" onClick={generatePDF}>📄 Download Statement</button>
+        <button className="download-btn" onClick={generatePDF}>📄 Download PDF</button>
       </div>
 
-      {/* Stats Cards */}
       <div className="stats-grid">
-        <div className="stat-card blue">
-            <h3>Total Business</h3>
-            <div className="big-number">₹ {stats.totalMilk}</div>
-        </div>
-        <div className="stat-card green">
-            <h3>Collected</h3>
-            <div className="big-number">₹ {stats.totalMoney}</div>
-        </div>
-        <div className="stat-card red">
-            <h3>Pending Udhaar</h3>
-            <div className="big-number">₹ {stats.totalDue}</div>
-        </div>
+        <div className="stat-card blue"><h3>Total Business</h3><div className="big-number">₹ {stats.totalMilk}</div></div>
+        <div className="stat-card green"><h3>Collected</h3><div className="big-number">₹ {stats.totalMoney}</div></div>
+        <div className="stat-card red"><h3>Pending Udhaar</h3><div className="big-number">₹ {stats.totalDue}</div></div>
       </div>
 
-      {/* Pending List Table */}
       <div className="defaulter-section">
         <h3>⚠️ Payment Pending List</h3>
         <table className="summary-table">
             <thead>
-                <tr>
-                    <th>Customer</th>
-                    <th>Pending Amount</th>
-                    <th>Action</th>
-                </tr>
+                <tr><th>Customer</th><th>Pending Amount</th><th>Action</th></tr>
             </thead>
             <tbody>
                 {defaulters.map((d, index) => (
@@ -173,7 +130,7 @@ const Summary = () => {
                         <td>{d.name}</td>
                         <td className="amount-due">₹ {d.due}</td>
                         <td>
-                            <button className="remind-btn" onClick={() => sendReminder(d.name, d.due)}>🔔 Remind</button>
+                            <button className="remind-btn" onClick={() => sendReminder(d.name, d.due)}>🟢 WhatsApp Remind</button>
                         </td>
                     </tr>
                 ))}
