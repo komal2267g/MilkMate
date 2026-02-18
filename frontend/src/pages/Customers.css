@@ -1,34 +1,32 @@
-.customer-card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
+.customers-container { padding: 20px; }
+.cust-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+.cust-table th, .cust-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
 
-.whatsapp-btn {
-    background-color: #25D366; /* WhatsApp Green */
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-}
+.fw-bold { font-weight: bold; }
+.text-red { color: #e74c3c; font-weight: bold; }
+.text-green { color: #27ae60; font-weight: bold; }
 
-.whatsapp-btn:hover {
-    background-color: #128C7E;
-}
+.action-btns { display: flex; gap: 10px; }
 
-.status.unpaid {
-    color: #c62828;
-    font-weight: bold;
+.whatsapp-btn { background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+.history-btn { background: #3498db; color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+
+/* MODAL STYLING */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 2000;
 }
-.status.paid {
-    color: #2e7d32;
-    font-weight: bold;
+.ledger-modal {
+    background: white; width: 90%; max-width: 600px; max-height: 80vh; 
+    border-radius: 15px; overflow: hidden; display: flex; flex-direction: column;
 }
+.modal-header { padding: 20px; background: #2c3e50; color: white; display: flex; justify-content: space-between; align-items: center; }
+.close-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+.modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+.history-table { width: 100%; border-collapse: collapse; }
+.history-table th { background: #f8f9fa; padding: 10px; text-align: left; }
+.history-table td { padding: 12px 10px; border-bottom: 1px solid #eee; }
+
+.row-milk { background-color: #fff9f9; }
+.row-pay { background-color: #f9fff9; }
